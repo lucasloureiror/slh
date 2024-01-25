@@ -9,7 +9,7 @@ var outages []models.OutageAllowed
 func Start(input *models.Input) {
 	slaCalculator(input.SLA)
 	printDowtime(input.SLA)
-	
+
 	if input.MTTR != "" {
 		calculateMonitoringFrequency(input.MTTR)
 		printMonitoringFrequency(input.MTTR)

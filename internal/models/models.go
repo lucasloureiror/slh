@@ -2,7 +2,7 @@ package models
 
 type Input struct {
 	HoursPerDay int
-	MTTR         string
+	MTTR        string
 	SLA         string
 }
 

@@ -2,7 +2,7 @@ package calculator
 
 import "fmt"
 
-func convertSecondsToTimeString(timeInSeconds int) string{
+func convertSecondsToTimeString(timeInSeconds int) string {
 	days := int(timeInSeconds) / 86400
 	hours := int(timeInSeconds) / 3600
 	minutes := (int(timeInSeconds) % 3600) / 60
@@ -24,10 +24,9 @@ func convertSecondsToTimeString(timeInSeconds int) string{
 		if seconds > 0 {
 			convertedString += fmt.Sprintf("%ds", seconds)
 		}
-		
+
 	}
 
 	return convertedString
 
 }
-

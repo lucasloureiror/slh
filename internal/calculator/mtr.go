@@ -1,11 +1,10 @@
 package calculator
 
-
 func calculateMonitoringFrequency(mtr string) {
 	mtrInSeconds, _ := MTRToSeconds(mtr)
 
 	for i := range outages {
-		if outages[i].Seconds > mtrInSeconds{
+		if outages[i].Seconds > mtrInSeconds {
 			Minimumfrequency := outages[i].Seconds - mtrInSeconds
 			outages[i].TestingFrequencyNecessary = convertSecondsToTimeString(Minimumfrequency)
 		}

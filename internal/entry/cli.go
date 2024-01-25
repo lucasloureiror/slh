@@ -15,8 +15,8 @@ var input models.Input
 func Start() {
 
 	app := &cli.App{
-		Name:  "slh",
-		Usage: "Service Level Helper is a CLI tool for calculating service level related data like SLO, SLA and Error Budget",
+		Name:                 "slh",
+		Usage:                "Service Level Helper is a CLI tool for calculating service level related data like SLO, SLA and Error Budget",
 		EnableBashCompletion: true,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
@@ -37,15 +37,12 @@ func Start() {
 			if ctx.NArg() > 0 {
 				input.SLA = ctx.Args().Get(0)
 				calculator.Start(&input)
-				
-			}
 
-			
+			}
 
 			return nil
 		},
 	}
-	
 
 	if err := app.Run(os.Args); err != nil {
 		log.Fatal(err)
