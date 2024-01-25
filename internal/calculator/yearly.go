@@ -1,8 +1,11 @@
 package calculator
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/lucasloureiror/slh/internal/models"
+)
 
-func yearlyCalculator(sla float64) string {
+func yearlyCalculator(sla float64) {
 	//Using a year with 365 days
 	const secondsPerYear = 365 * 24 * 60 * 60
 	sla = sla / 100
@@ -14,20 +17,24 @@ func yearlyCalculator(sla float64) string {
 	minutes := (int(downtime) % 3600) / 60
 	seconds := int(downtime) % 60
 
-	downtimeString := "Yearly (365 days): "
-	if days > 0 {
-		downtimeString += fmt.Sprintf("%dd ", days)
-	}
-	if hours > 0 {
-		downtimeString += fmt.Sprintf("%dh ", hours)
-	}
-	if minutes > 0 {
-		downtimeString += fmt.Sprintf("%dm ", minutes)
-	}
-	if seconds > 0 {
-		downtimeString += fmt.Sprintf("%ds ", seconds)
-	}
+	downtimeString := ""
+	if (days + hours + minutes + seconds) == 0 {
+		downtimeString = "0s"
+	} else {
+		if days > 0 {
+			downtimeString += fmt.Sprintf("%dd ", days)
+		}
+		if hours > 0 {
+			downtimeString += fmt.Sprintf("%dh ", hours)
+		}
+		if minutes > 0 {
+			downtimeString += fmt.Sprintf("%dm ", minutes)
+		}
+		if seconds > 0 {
+			downtimeString += fmt.Sprintf("%ds ", seconds)
+		}
 
-	return downtimeString
-
+	}
+	outage := models.OutageAllowed{Seconds: int(downtime), TimeFrame: "Yearly (365 days): ", ResultInTimeString: downtimeString}
+	outages = append(outages, outage)
 }

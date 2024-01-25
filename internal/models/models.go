@@ -1,14 +1,14 @@
 package models
 
-type Config struct {
+type Input struct {
 	HoursPerDay int
+	MTTR         string
+	SLA         string
 }
 
-type Downtime struct {
-	SLA      string
-	Daily    string
-	Weekly   string
-	Monthly  string
-	Quartely string
-	Yearly   string
+type OutageAllowed struct {
+	Seconds                   int
+	TimeFrame                 string
+	ResultInTimeString        string
+	TestingFrequencyNecessary string
 }
