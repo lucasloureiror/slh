@@ -12,7 +12,7 @@ func Start(input string) {
 
 }
 
-func slaCalculator(input string){
+func slaCalculator(input string) {
 
 	sla := checkInput(input)
 	downtime.Daily = dailyCalculator(sla)
