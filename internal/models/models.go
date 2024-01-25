@@ -1,6 +1,7 @@
 package models
 
 type Config struct {
+	HoursPerDay int
 
 }
 

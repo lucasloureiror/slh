@@ -16,7 +16,7 @@ func yearlyCalculator(sla float64) string {
 
 	downtimeString := "Yearly (365 days): "
 	if days > 0 {
-		downtimeString += fmt.Sprintf("%dd", days)
+		downtimeString += fmt.Sprintf("%dd ", days)
 	}
 	if hours > 0 {
 		downtimeString += fmt.Sprintf("%dh ", hours)
@@ -25,7 +25,7 @@ func yearlyCalculator(sla float64) string {
 		downtimeString += fmt.Sprintf("%dm ", minutes)
 	}
 	if seconds > 0 {
-		downtimeString += fmt.Sprintf("%ds", seconds)
+		downtimeString += fmt.Sprintf("%ds ", seconds)
 	}
 
 	return downtimeString

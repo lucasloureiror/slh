@@ -1,16 +1,11 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/lucasloureiror/slh/internal/calculator"
+	"github.com/lucasloureiror/slh/internal/entry"
 )
 
 func main() {
-	var input string
 
-	fmt.Scanln(&input)
-
-	calculator.Start(input)
+	entry.Start()
 
 }

@@ -12,6 +12,9 @@ func dailyCalculator(sla float64) string {
 	minutes := (int(downtime) % 3600) / 60
 	seconds := int(downtime) % 60
 
+	if (hours + minutes + seconds) == 0 {
+		return "Daily: 0s"
+	}
 	downtimeString := "Daily: "
 	if hours > 0 {
 		downtimeString += fmt.Sprintf("%dh ", hours)

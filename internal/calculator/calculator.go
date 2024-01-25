@@ -24,7 +24,3 @@ func slaCalculator(input string){
 	print()
 
 }
-
-func stringFmt() {
-
-}
