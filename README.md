@@ -1,2 +1,2 @@
-# sla
-CLI Tools for calculating SLA related metrics.
+# slh
+CLI Tools for calculating Service Level related data.
