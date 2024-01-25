@@ -1,7 +1,7 @@
 package calculator
 
 import (
-	"github.com/lucasloureiror/sla/internal/models"
+	"github.com/lucasloureiror/slh/internal/models"
 )
 
 var downtime models.Downtime

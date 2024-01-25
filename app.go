@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/lucasloureiror/sla/internal/calculator"
+	"github.com/lucasloureiror/slh/internal/calculator"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/lucasloureiror/sla
+module github.com/lucasloureiror/slh
 
 go 1.21.5
 
