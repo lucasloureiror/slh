@@ -14,9 +14,11 @@ To install Service Level Helper, you need to have Go installed on your machine. 
 Once you have Go installed, you can install Service Level Helper by running the following command:
 
 ```bash
-go install github.com/lucasloureiror/slh
+go install github.com/lucasloureiror/slh@latest
 ```
+This will install Service Level Helper in your `$GOPATH/bin` directory. Make sure that this directory is in your `$PATH` environment variable.
 
+Soon I will be providing binaries for Windows, Linux, and macOS.
 
 ## Usage
 
