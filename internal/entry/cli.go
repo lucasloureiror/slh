@@ -29,7 +29,6 @@ func Start() {
 		},
 		Action: func(ctx *cli.Context) error {
 
-
 			if ctx.NArg() > 0 {
 				input.SLA = ctx.Args().Get(0)
 				calculator.Start(&input)
