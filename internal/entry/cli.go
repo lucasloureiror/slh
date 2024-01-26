@@ -30,9 +30,6 @@ func Start() {
 		},
 		Action: func(ctx *cli.Context) error {
 
-			if ctx.String("mttr") == "" {
-				fmt.Println("The code is entering here")
-			}
 
 			if ctx.NArg() > 0 {
 				input.SLA = ctx.Args().Get(0)
