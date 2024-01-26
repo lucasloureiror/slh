@@ -1,7 +1,6 @@
 package entry
 
 import (
-	"fmt"
 	"log"
 	"os"
 
