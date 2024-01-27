@@ -113,5 +113,5 @@ The output above shows that with a 20-minute MTTR, 3 average incidents per time 
 
 ## License  
 
-Service Level Helper (slh) is licensed under the [GPL-3.0](LICENSE.md).
+Service Level Helper (slh) is licensed under the [MIT License](LICENSE.md).
 
