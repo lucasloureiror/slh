@@ -109,7 +109,7 @@ The output above shows that with a 20-minute MTTR, 3 average incidents per time 
 
 - You need to probe at least every 14 hours and 26 minutes to keep your Service Level inside the yearly period with 3 average incidents per year and 2 failed probe to alert.
 
-<p class="callout warning">This formula is experimental and I offer no guarantee that will work as expected for you!</p>
+> WARNING: This formula is experimental and I offer no guarantee that will work as expected for you.
 
 ## License  
 
