@@ -2,7 +2,6 @@ package calculator
 
 import (
 	"fmt"
-
 	"github.com/lucasloureiror/slh/internal/models"
 )
 
