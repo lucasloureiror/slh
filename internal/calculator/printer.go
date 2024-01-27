@@ -1,21 +1,39 @@
 package calculator
 
-import "fmt"
+import (
+	"fmt"
 
-func printDowtime(SLA string) {
-	fmt.Println(SLA+"%", "availability represents the following maximum allowable downtime to meet your Service Level:")
+	"github.com/lucasloureiror/slh/internal/models"
+)
+
+func errorPrinter(err error) {
+	fmt.Println(err)
+}
+
+func printDowtime(input models.Input) error {
+	fmt.Println(input.SLA+"%", "availability represents the following maximum allowable downtime to meet your Service Level:")
 	for _, outage := range outages {
 		fmt.Println(outage.TimeFrame + outage.ResultInTimeString)
 	}
 
+	return nil
+
 }
 
-func printMonitoringFrequency(mtr string) {
-	fmt.Println("\nWith a " + mtr + " MTTR, the following MINIMUM probing frequency is necessary (with 1 failed probe to alert) to meet your Service Level inside these time frames with ONE INCIDENT:")
+func printMonitoringFrequency(input models.Input) error {
+
+	message := "\nWith a " + input.MTTR + " MTTR, " + fmt.Sprint(input.Incidents) + " average incident per time period and " +
+		fmt.Sprint(input.ProbeFailures) + " failed probe to alert\n" +
+		"Here is the MINIMUM probing frequency is necessary to keep your Service Level inside these time periods: "
+
+	fmt.Println(message)
+
 	for _, outage := range outages {
 		if outage.TestingFrequencyNecessary != "" {
 			fmt.Println(outage.TimeFrame + outage.TestingFrequencyNecessary)
 		}
 	}
+
+	return nil
 
 }

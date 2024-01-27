@@ -15,7 +15,7 @@ func Start() {
 
 	app := &cli.App{
 		Name:                 "slh",
-		Usage:                "Service Level Helper is a CLI tool for calculating service level related data like SLO, SLA and Error Budget",
+		Usage:                "Service Level Helper is a CLI tool for calculating Service Level related metrics like SLO, SLA, Error Budgets and probing frequency to maintain SLO.",
 		Version:              "v0.3.0",
 		EnableBashCompletion: true,
 		Flags: []cli.Flag{
@@ -33,6 +33,7 @@ func Start() {
 				Aliases:     []string{"i"},
 				Usage:       "Is the `number` of Incidents that you are expecting to happen in a specific time frame.",
 				Destination: &input.Incidents,
+				Value:       1,
 				DefaultText: "1",
 				Action: func(ctx *cli.Context, i int) error {
 					if i < 1 {
@@ -50,6 +51,7 @@ func Start() {
 				Aliases:     []string{"p"},
 				Usage:       "`Number` of probes necessary to alert you about an incident.",
 				Destination: &input.ProbeFailures,
+				Value:       1,
 				DefaultText: "1",
 				Action: func(ctx *cli.Context, p int) error {
 					if p < 1 {

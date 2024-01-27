@@ -6,15 +6,19 @@ import (
 
 var outages []models.OutageAllowed
 
-func Start(input *models.Input) {
+func Start(input *models.Input) error {
 	slaCalculator(&input.SLA)
-	printDowtime(input.SLA)
+	printDowtime(*input)
 
 	if input.MTTR != "" {
-		calculateMonitoringFrequency(input.MTTR)
-		printMonitoringFrequency(input.MTTR)
+		err := calculateMonitoringFrequency(input.MTTR, input.Incidents, input.ProbeFailures)
+		if err != nil {
+			errorPrinter(err)
+			return err
+		}
+		printMonitoringFrequency(*input)
 	}
-
+	return nil
 }
 
 func slaCalculator(input *string) {
@@ -25,5 +29,4 @@ func slaCalculator(input *string) {
 	monthlyCalculator(sla)
 	quartelyCalculator(sla)
 	yearlyCalculator(sla)
-
 }
