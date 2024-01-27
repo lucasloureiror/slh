@@ -63,7 +63,7 @@ $\text{Probe Frequency} = \frac{\text{Total Available Buffer Time}}{\text{Expect
 
 - **Total Available Buffer Time**: This is the time remaining in your downtime budget. It is calculated with this formula: 
 
-    $ \text{Total Available Buffer Time} = \text{Downtime Budget} - (\text{Time to Repair} \times \text{Number of Incidents})$
+    $\text{Total Available Buffer Time} = \text{Downtime Budget} - (\text{Time to Repair} \times \text{Number of Incidents})$
 
 
 
