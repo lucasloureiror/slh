@@ -23,7 +23,7 @@ go install github.com/lucasloureiror/slh@latest
 ```
 This will install Service Level Helper in your `$GOPATH/bin` directory. Make sure that this directory is in your `$PATH` environment variable.
 
-Soon I will also be providing binaries packages for x86-64 and arm.
+You can also download binaries directly through[GitHub Releases](https://github.com/lucasloureiror/slh/releases) and put in your `$PATH` or anywhere you prefer.
 
 ## Usage
 
