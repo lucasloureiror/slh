@@ -4,7 +4,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/lucasloureiror/slh)](https://goreportcard.com/report/github.com/lucasloureiror/slh)
 [![GitHub](https://img.shields.io/github/license/lucasloureiror/slh)](LICENSE.md)
 
-Service Level Helper (slh) is a command-line interface (CLI) tool designed to assist Site Reliability Engineers (SRE), DevOps professionals, and similar roles in calculating the maximum allowable downtime based on a given service level objective or agreement. This tool is written in Go.
+Service Level Helper (slh) is a command-line interface (CLI) tool, written in Go, designed to assist Site Reliability Engineers (SRE), DevOps professionals, and similar roles in calculating the maximum allowable downtime based on a given service level objective or agreement.
 
 
 ## Features
