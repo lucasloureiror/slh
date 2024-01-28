@@ -48,7 +48,7 @@ Yearly (365 days): 8h 45m 35s
 
 ## Probe Frequency Calculation Algorithm
 
-The Service Level Helper (slh) includes a feature to calculate the necessary frequency of probes for monitoring and alerting to achieve a specified Service Level Objective (SLO). This calculation is based on the Mean Time to Repair (MTTR), the expected number of incidents, and the number of probes required to confirm an incident. The algorithm is as follows:
+The Service Level Helper (slh) includes a feature to calculate the necessary frequency of probes for monitoring and alerting to achieve a specified Service Level. This calculation is based on the Mean Time to Repair (MTTR), the expected number of incidents, and the number of probes required to confirm an incident. The algorithm is as follows:
 
 ### Formula
 
@@ -69,7 +69,7 @@ $\text{Probe Frequency} = \frac{\text{Total Available Buffer Time}}{\text{Expect
 
 ### Formula Explanation
 
-This formula calculates the average time allocated for each probe to detect an incident. It helps in determining the frequency of health checks necessary to identify system unavailability within the constraints of the specified Service Level Agreement (SLA).
+This formula calculates the average time allocated for each probe to detect an incident. It helps in determining the frequency of health checks necessary to identify system unavailability within the constraints of the specified Service Level.
 
 ### Usage Example
 
