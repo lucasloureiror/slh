@@ -11,6 +11,6 @@ Service Level Helper (slh) is a command-line interface (CLI) tool, written in Go
 ## Features
 
 - Accepts a service level objective or agreement as input.
-- Calculates the maximum allowable downtime for daily, weekly, monthly, quarterly, and yearly periods.
+- Calculates the maximum allowable downtime for daily (with custom hours per day possible), weekly, monthly, quarterly, and yearly periods.
 - Calculates the minimum probing frequency necessary to keep your Service Level inside specific time periods.
 
