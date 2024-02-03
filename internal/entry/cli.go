@@ -3,20 +3,19 @@ package entry
 import (
 	"fmt"
 	"github.com/lucasloureiror/slh/internal/calculator"
-	"github.com/lucasloureiror/slh/internal/models"
 	"github.com/urfave/cli/v2"
 	"log"
 	"os"
 )
 
-var input models.Input
+var input calculator.Input
 
 func Start() {
 
 	app := &cli.App{
 		Name:                 "slh",
 		Usage:                "Service Level Helper is a CLI tool for calculating Service Level related metrics like SLO, SLA, Error Budgets and probing frequency to maintain SLO.",
-		Version:              "v0.3.0",
+		Version:              "v0.4.0",
 		EnableBashCompletion: true,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
@@ -49,7 +48,7 @@ func Start() {
 			&cli.IntFlag{
 				Name:        "probes",
 				Aliases:     []string{"p"},
-				Usage:       "`Number` of probes necessary to alert you about an incident.",
+				Usage:       "`number` of probes necessary to alert you about an incident.",
 				Destination: &input.ProbeFailures,
 				Value:       1,
 				DefaultText: "1",
@@ -64,7 +63,26 @@ func Start() {
 					return nil
 				},
 			},
+			&cli.IntFlag{
+				Name:        "hours",
+				Aliases:     []string{"hr"},
+				Usage:       "`number` of hours per day that you want to calculate your availability.",
+				Destination: &input.HoursPerDay,
+				Value:       24,
+				DefaultText: "24",
+				Action: func(ctx *cli.Context, h int) error {
+					if h < 1 {
+						return fmt.Errorf("you need to specify a number of hours greater than 0")
+					}
+
+					if h > 24 {
+						return fmt.Errorf("you need to specify a number of hours no greater than 24")
+					}
+					return nil
+				},
+			},
 		},
+
 		Action: func(ctx *cli.Context) error {
 			if ctx.NArg() != 1 {
 				return fmt.Errorf("you need to specify only one Service Level percentage")

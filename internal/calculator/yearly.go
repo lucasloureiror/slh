@@ -1,19 +1,19 @@
 package calculator
 
 import (
-	"github.com/lucasloureiror/slh/internal/models"
+	"github.com/lucasloureiror/slh/internal/pkg"
 )
 
-func yearlyCalculator(sla float64) {
+func yearlyCalculator(sla float64, hoursPerDay int) {
 	//Using a year with 365 days
-	const secondsPerYear = 365 * 24 * 60 * 60
+	secondsPerYear := 365 * hoursPerDay * 60 * 60
 	sla = sla / 100
 	downtime := 1 - sla
 
-	downtime = downtime * secondsPerYear
+	downtime = downtime * float64(secondsPerYear)
 
-	downtimeString := convertSecondsToTimeString(int(downtime))
+	downtimeString := pkg.ConvertSecondsToTimeString(int(downtime))
 
-	outage := models.OutageAllowed{Seconds: int(downtime), TimeFrame: "Yearly (365 days): ", ResultInTimeString: downtimeString}
+	outage := OutageAllowed{Seconds: int(downtime), TimeFrame: "Yearly (365 days): ", ResultInTimeString: downtimeString}
 	outages = append(outages, outage)
 }

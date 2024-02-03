@@ -1,20 +1,18 @@
 package calculator
 
-import (
-	"github.com/lucasloureiror/slh/internal/models"
-)
+import "github.com/lucasloureiror/slh/internal/pkg"
 
-func monthlyCalculator(sla float64) {
+func monthlyCalculator(sla float64, hoursPerDay int) {
 	//Using an average month with 30.44 days
-	const averageSecondsPerMonth = 30.44 * 24 * 60 * 60
+	averageSecondsPerMonth := 30.44 * float64(hoursPerDay) * 60 * 60
 	sla = sla / 100
 	downtime := 1 - sla
 
 	downtime = downtime * averageSecondsPerMonth
 
-	downtimeString := convertSecondsToTimeString(int(downtime))
+	downtimeString := pkg.ConvertSecondsToTimeString(int(downtime))
 
-	outage := models.OutageAllowed{Seconds: int(downtime), TimeFrame: "Monthly (Average): ", ResultInTimeString: downtimeString}
+	outage := OutageAllowed{Seconds: int(downtime), TimeFrame: "Monthly (Average): ", ResultInTimeString: downtimeString}
 	outages = append(outages, outage)
 
 }

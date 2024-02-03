@@ -2,14 +2,13 @@ package calculator
 
 import (
 	"fmt"
-	"github.com/lucasloureiror/slh/internal/models"
 )
 
 func errorPrinter(err error) {
 	fmt.Println(err)
 }
 
-func printDowtime(input models.Input) error {
+func printDowtime(input Input) error {
 	fmt.Println(input.SLA+"%", "availability represents the following maximum allowable downtime to meet your Service Level:")
 	for _, outage := range outages {
 		fmt.Println(outage.TimeFrame + outage.ResultInTimeString)
@@ -19,7 +18,7 @@ func printDowtime(input models.Input) error {
 
 }
 
-func printMonitoringFrequency(input models.Input) error {
+func printMonitoringFrequency(input Input) error {
 
 	message := "\nWith a " + input.MTTR + " MTTR, " + fmt.Sprint(input.Incidents) + " average incident per time period and " +
 		fmt.Sprint(input.ProbeFailures) + " failed probe to alert\n" +

@@ -1,13 +1,11 @@
 package calculator
 
-import (
-	"github.com/lucasloureiror/slh/internal/models"
-)
+import ()
 
-var outages []models.OutageAllowed
+var outages []OutageAllowed
 
-func Start(input *models.Input) error {
-	slaCalculator(&input.SLA)
+func Start(input *Input) error {
+	slaCalculator(&input.SLA, input.HoursPerDay)
 	printDowtime(*input)
 
 	if input.MTTR != "" {
@@ -21,12 +19,12 @@ func Start(input *models.Input) error {
 	return nil
 }
 
-func slaCalculator(input *string) {
+func slaCalculator(input *string, hoursPerDay int) {
 
 	sla := checkInput(input)
-	dailyCalculator(sla)
-	weeklyCalculator(sla)
-	monthlyCalculator(sla)
-	quartelyCalculator(sla)
-	yearlyCalculator(sla)
+	dailyCalculator(sla, hoursPerDay)
+	weeklyCalculator(sla, hoursPerDay)
+	monthlyCalculator(sla, hoursPerDay)
+	quartelyCalculator(sla, hoursPerDay)
+	yearlyCalculator(sla, hoursPerDay)
 }

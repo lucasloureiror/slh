@@ -1,20 +1,18 @@
 package calculator
 
-import (
-	"github.com/lucasloureiror/slh/internal/models"
-)
+import "github.com/lucasloureiror/slh/internal/pkg"
 
-func quartelyCalculator(sla float64) {
+func quartelyCalculator(sla float64, hoursPerDay int) {
 	//Using a quarter with 90 days
-	const secondsPerQuarter = 90 * 24 * 60 * 60
+	secondsPerQuarter := 90 * hoursPerDay * 60 * 60
 	sla = sla / 100
 	downtime := 1 - sla
 
-	downtime = downtime * secondsPerQuarter
+	downtime = downtime * float64(secondsPerQuarter)
 
-	downtimeString := convertSecondsToTimeString(int(downtime))
+	downtimeString := pkg.ConvertSecondsToTimeString(int(downtime))
 
-	outage := models.OutageAllowed{Seconds: int(downtime), TimeFrame: "Quartely (90 days): ", ResultInTimeString: downtimeString}
+	outage := OutageAllowed{Seconds: int(downtime), TimeFrame: "Quartely (90 days): ", ResultInTimeString: downtimeString}
 	outages = append(outages, outage)
 
 }

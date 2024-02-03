@@ -1,19 +1,19 @@
 package calculator
 
 import (
-	"github.com/lucasloureiror/slh/internal/models"
+	"github.com/lucasloureiror/slh/internal/pkg"
 )
 
-func weeklyCalculator(sla float64) {
-	const secondsPerWeek = 604800
+func weeklyCalculator(sla float64, hoursPerDay int) {
+	secondsPerWeek := hoursPerDay * 7 * 60 * 60
 	sla = sla / 100
 	downtime := 1 - sla
 
-	downtime = downtime * secondsPerWeek
+	downtime = downtime * float64(secondsPerWeek)
 
-	downtimeString := convertSecondsToTimeString(int(downtime))
+	downtimeString := pkg.ConvertSecondsToTimeString(int(downtime))
 
-	outage := models.OutageAllowed{Seconds: int(downtime), TimeFrame: "Weekly: ", ResultInTimeString: downtimeString}
+	outage := OutageAllowed{Seconds: int(downtime), TimeFrame: "Weekly: ", ResultInTimeString: downtimeString}
 	outages = append(outages, outage)
 
 }

@@ -1,8 +1,10 @@
-package calculator
+package pkg
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func convertSecondsToTimeString(timeInSeconds int) string {
+func ConvertSecondsToTimeString(timeInSeconds int) string {
 	days := int(timeInSeconds) / 86400
 	hours := (int(timeInSeconds) % 86400) / 3600
 	minutes := ((int(timeInSeconds) % 86400) % 3600) / 60

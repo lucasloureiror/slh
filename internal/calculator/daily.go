@@ -1,19 +1,27 @@
 package calculator
 
 import (
-	"github.com/lucasloureiror/slh/internal/models"
+	"fmt"
+
+	"github.com/lucasloureiror/slh/internal/pkg"
 )
 
-func dailyCalculator(sla float64) {
-	const secondsPerDay = 86400
+func dailyCalculator(sla float64, hoursPerDay int) {
+	secondsPerDay := hoursPerDay * 60 * 60
 	sla = sla / 100
 	downtime := 1 - sla
 
-	downtime = downtime * secondsPerDay
+	downtime = downtime * float64(secondsPerDay)
 
-	downtimeString := convertSecondsToTimeString(int(downtime))
+	downtimeString := pkg.ConvertSecondsToTimeString(int(downtime))
 
-	outage := models.OutageAllowed{Seconds: int(downtime), TimeFrame: "Daily: ", ResultInTimeString: downtimeString}
+	timeFrame := "Daily: "
+
+	if hoursPerDay != 24 {
+		timeFrame = "Daily (" + fmt.Sprint(hoursPerDay) + " hours): "
+	}
+
+	outage := OutageAllowed{Seconds: int(downtime), TimeFrame: timeFrame, ResultInTimeString: downtimeString}
 	outages = append(outages, outage)
 
 }
