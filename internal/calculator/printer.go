@@ -33,14 +33,14 @@ func printMaximumDowntime(sl string) {
 func printMonitoringFrequency(input Input) error {
 
 	message := "\nWith a " + input.MTTR + " MTTR, " + fmt.Sprint(input.Incidents) + " average incident per time period and " +
-		fmt.Sprint(input.ProbeFailures) + " failed probe to alert\n" +
+		fmt.Sprint(input.ProbeFailures) + " failed probe to alert,\n" +
 		"Here is the MINIMUM probing frequency is necessary to keep your Service Level inside these time periods: "
 
 	fmt.Println(message)
 
-	for i := range serviceLevels {
-		if serviceLevels[i].testingFrequencyNecessary != "" {
-			fmt.Println(serviceLevels[i].label + serviceLevels[i].testingFrequencyNecessary)
+	for index := range serviceLevels {
+		if serviceLevels[index].testingFrequencyNecessary != "" {
+			fmt.Println(serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].testingFrequencyNecessary)
 		}
 	}
 
