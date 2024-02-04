@@ -9,12 +9,18 @@
 
 Service Level Helper (slh) is a command-line interface (CLI) tool, written in Go, designed to assist Site Reliability Engineers (SRE), DevOps professionals, and similar roles in calculating the maximum allowable downtime based on a given service level objective or agreement.
 
+## Documentation
+
+The full documentation for Service Level Helper (slh) is available on [slh.loureiro.tech](https://slh.loureiro.tech).
+
 
 ## Features
 
-- Accepts a service level objective or agreement as input.
-- Calculates the maximum allowable downtime for daily, weekly, monthly, quarterly, and yearly periods.
+- Calculates the maximum allowable downtime for daily, weekly, monthly, quarterly, and yearly periods with a given service level objective or agreement.
 - Calculates the minimum probing frequency necessary to keep your Service Level inside specific time periods.
+- Supports custom Mean Time to Repair (MTTR), expected incidents, and number of probes to alert for the probing frequency calculation.
+- Calculates your Service Level based on the total duration of outages and the total duration of the monitoring period.
+- Provides a simple and easy-to-use command-line interface made with [urfave/cli](https://cli.urfave.org/)
 
 ## Installation
 
@@ -118,5 +124,5 @@ The output above shows that with a 20-minute MTTR, 3 average incidents per time 
 
 ## License  
 
-Service Level Helper (slh) is licensed under the [MIT License](LICENSE).
+Service Level Helper (slh) is licensed under the [Apache License](LICENSE).
 
