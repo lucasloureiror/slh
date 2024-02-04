@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/lucasloureiror/slh/internal/entry"
+	"github.com/lucasloureiror/slh/internal/cli"
 )
 
 func main() {
 
-	entry.Start()
+	cli.Start()
 
 }

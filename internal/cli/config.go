@@ -1,4 +1,4 @@
-package entry
+package cli
 
 import (
 	"fmt"
@@ -17,6 +17,41 @@ func Start() {
 		Usage:                "Service Level Helper is a CLI tool for calculating Service Level related metrics like SLO, SLA, Error Budgets and probing frequency to maintain SLO.",
 		Version:              "v0.4.0",
 		EnableBashCompletion: true,
+		Commands: []*cli.Command{
+			{
+				Name:    "reverse",
+				Aliases: []string{"r"},
+				Usage:   "Reverse calculate the Service Level percentage based on total duration of downtime",
+				Flags: []cli.Flag{
+					&cli.IntFlag{
+						Name:        "hours",
+						Aliases:     []string{"hr"},
+						Usage:       "`number` of hours per day that you want to calculate your availability.",
+						Destination: &input.HoursPerDay,
+						Value:       24,
+						DefaultText: "24",
+						Action: func(ctx *cli.Context, h int) error {
+							if h < 1 {
+								return fmt.Errorf("you need to specify a number of hours greater than 0")
+							}
+
+							if h > 24 {
+								return fmt.Errorf("you need to specify a number of hours no greater than 24")
+							}
+							return nil
+						},
+					},
+				},
+				Action: func(c *cli.Context) error {
+					if c.NArg() == 1 {
+						input.TotalOutageTime = c.Args().First()
+						calculator.Reverse(input.TotalOutageTime, input.HoursPerDay)
+
+					}
+					return nil
+				},
+			},
+		},
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:    "mttr",
@@ -87,8 +122,8 @@ func Start() {
 			if ctx.NArg() != 1 {
 				return fmt.Errorf("you need to specify only one Service Level percentage")
 			}
-			input.SLA = ctx.Args().Get(0)
-			calculator.Start(&input)
+			input.ServiceLevel = ctx.Args().First()
+			calculator.Calculate(&input)
 
 			return nil
 		},
