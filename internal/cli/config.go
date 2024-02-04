@@ -21,7 +21,7 @@ func Start() {
 			{
 				Name:    "reverse",
 				Aliases: []string{"r"},
-				Usage:   "Reverse calculate the Service Level percentage based on total duration of downtime",
+				Usage:   "Reverse calculate the Service Level percentage based on total duration of downtime in a string format like 1d or 1h30m or 1h30m15s.",
 				Flags: []cli.Flag{
 					&cli.IntFlag{
 						Name:        "hours",
@@ -43,11 +43,11 @@ func Start() {
 					},
 				},
 				Action: func(c *cli.Context) error {
-					if c.NArg() == 1 {
-						input.TotalOutageTime = c.Args().First()
-						calculator.Reverse(input.TotalOutageTime, input.HoursPerDay)
-
+					if c.NArg() != 1 {
+						return fmt.Errorf("you need to specify the total duration of downtime in the correct format, see help for instructions")
 					}
+					input.TotalOutageTime = c.Args().First()
+					calculator.Reverse(input.TotalOutageTime, input.HoursPerDay)
 					return nil
 				},
 			},

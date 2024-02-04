@@ -15,14 +15,14 @@ func Reverse(outage string, hoursPerDay int) {
 	populateServiceLevelData(&serviceLevels, hoursPerDay)
 
 	for index := range serviceLevels {
-		serviceLevels[index].reverseCalculator(float64(seconds))
+		serviceLevels[index].reverseCalculate(float64(seconds))
 	}
 
 	printReverse(outage)
 
 }
 
-func (s *serviceLevel) reverseCalculator(downtime float64) {
+func (s *serviceLevel) reverseCalculate(downtime float64) {
 
 	s.downtimeInSeconds = downtime
 
