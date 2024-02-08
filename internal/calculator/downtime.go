@@ -16,7 +16,7 @@ limitations under the License.
 package calculator
 
 import (
-	"github.com/lucasloureiror/slh/internal/pkg"
+	"github.com/lucasloureiror/slh/internal/convert"
 )
 
 func Calculate(input *Input) error {
@@ -47,6 +47,6 @@ func (s *serviceLevel) calculateDowntimeString() string {
 	s.availabilityInPercentage = s.availabilityInPercentage / 100
 	downtimePercentage := 1 - s.availabilityInPercentage
 	s.downtimeInSeconds = downtimePercentage * s.totalTimePeriod
-	downtimeString := pkg.ConvertSecondsToTimeString(int(s.downtimeInSeconds))
+	downtimeString := convert.SecondsToTimeString(int(s.downtimeInSeconds))
 	return downtimeString
 }

@@ -13,10 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package pkg_test
+package convert
 
 import (
-	"github.com/lucasloureiror/slh/internal/pkg"
 	"testing"
 )
 
@@ -26,7 +25,7 @@ func TestTimeStringToSeconds(t *testing.T) {
 	seconds := []int{86400, 3600, 60, 1, 90061, 90060, 90001, 86461, 3661, 90000, 86460, 86401, 3660, 3601, 61}
 
 	for i, v := range timeString {
-		got, err := pkg.ConvertTimeStringToSeconds(v)
+		got, err := TimeStringToSeconds(v)
 
 		if err != nil {
 			t.Errorf("Error: %s", err)
@@ -43,7 +42,7 @@ func TestErrorTimeStringToSeconds(t *testing.T) {
 	timeString := []string{"1d1h1m1", "1d1h1m1s1", "1d1h1m1s1s", "1d1h1m1s1s1s", "1d1h1m1s1s1s1s", "xd", "xm", "xh", "xs", "xdxmxmxs"}
 
 	for _, v := range timeString {
-		_, err := pkg.ConvertTimeStringToSeconds(v)
+		_, err := TimeStringToSeconds(v)
 
 		if err == nil {
 			t.Errorf("Expected an error, got nil")

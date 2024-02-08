@@ -17,11 +17,11 @@ package calculator
 
 import (
 	"fmt"
-	"github.com/lucasloureiror/slh/internal/pkg"
+	"github.com/lucasloureiror/slh/internal/convert"
 )
 
 func Reverse(outage string, hoursPerDay int) {
-	seconds, err := pkg.ConvertTimeStringToSeconds(outage)
+	seconds, err := convert.TimeStringToSeconds(outage)
 	if err != nil {
 		errorPrinter(err)
 		return

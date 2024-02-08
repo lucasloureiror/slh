@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package pkg
+package convert
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ import (
 	"strconv"
 )
 
-func ConvertSecondsToTimeString(timeInSeconds int) string {
+func SecondsToTimeString(timeInSeconds int) string {
 	days := int(timeInSeconds) / 86400
 	hours := (int(timeInSeconds) % 86400) / 3600
 	minutes := ((int(timeInSeconds) % 86400) % 3600) / 60
@@ -50,7 +50,7 @@ func ConvertSecondsToTimeString(timeInSeconds int) string {
 
 }
 
-func ConvertTimeStringToSeconds(mtr string) (int, error) {
+func TimeStringToSeconds(mtr string) (int, error) {
 	re := regexp.MustCompile(`^(?:(\d+)d)?(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$`)
 	matches := re.FindStringSubmatch(mtr)
 

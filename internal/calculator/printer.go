@@ -19,7 +19,7 @@ import (
 	"fmt"
 )
 
-var substring [5]string = [5]string{"",
+var substring = [5]string{"",
 	" (7 days)",
 	" (Average)",
 	" (90 days)",

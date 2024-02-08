@@ -29,7 +29,7 @@ func checkSLInput(input *string) (float64, error) {
 	sla, err := strconv.ParseFloat(*input, 64)
 
 	if err != nil {
-		return 0, fmt.Errorf("invalid Service Level")
+		return 1, fmt.Errorf("invalid Service Level")
 	}
 
 	if sla < 16 && sla > 1 {

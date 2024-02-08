@@ -17,12 +17,12 @@ package calculator
 
 import (
 	"errors"
-	"github.com/lucasloureiror/slh/internal/pkg"
+	"github.com/lucasloureiror/slh/internal/convert"
 )
 
 func calculateMonitoringFrequency(mtr string, incidents int, probeFailures int) error {
 
-	mtrInSeconds, err := pkg.ConvertTimeStringToSeconds(mtr)
+	mtrInSeconds, err := convert.TimeStringToSeconds(mtr)
 
 	if err != nil {
 		return err
@@ -34,7 +34,7 @@ func calculateMonitoringFrequency(mtr string, incidents int, probeFailures int) 
 	for i := range serviceLevels {
 		if int(serviceLevels[i].downtimeInSeconds) > mtrInSeconds {
 			Minimumfrequency := (int(serviceLevels[i].downtimeInSeconds) - mtrInSeconds) / (incidents * probeFailures)
-			serviceLevels[i].testingFrequencyNecessary = pkg.ConvertSecondsToTimeString(Minimumfrequency)
+			serviceLevels[i].testingFrequencyNecessary = convert.SecondsToTimeString(Minimumfrequency)
 			impossibleToMonitor = false
 		}
 	}
