@@ -28,24 +28,25 @@ func Reverse(outage string, hoursPerDay int) {
 	}
 
 	populateServiceLevelData(&serviceLevels, hoursPerDay)
+	reverseCalculator := reverseCalculator{}
 
 	for index := range serviceLevels {
-		serviceLevels[index].reverseCalculate(float64(seconds))
+		serviceLevels[index].data.downtimeInSeconds = float64(seconds)
+		serviceLevels[index].calculator = &reverseCalculator
+		serviceLevels[index].calculator.calculate(&serviceLevels[index].data)
 	}
 
 	printReverse(outage)
 
 }
 
-func (s *serviceLevel) reverseCalculate(downtime float64) {
-
-	s.downtimeInSeconds = downtime
-
-	if s.totalTimePeriod > float64(downtime) {
-		s.availabilityInPercentage = 100 - (float64(downtime) / s.totalTimePeriod * 100)
-	}
+func (r *reverseCalculator) print(data *serviceLevelData) string {
+	return fmt.Sprintf("%.5f", data.availabilityInPercentage) + "%"
 }
 
-func (s *serviceLevel) availabilityToString() string {
-	return fmt.Sprintf("%.5f", s.availabilityInPercentage) + "%"
+func (r *reverseCalculator) calculate(data *serviceLevelData) {
+
+	if data.totalTimePeriod > data.downtimeInSeconds {
+		data.availabilityInPercentage = (100 - data.downtimeInSeconds/data.totalTimePeriod*100)
+	}
 }

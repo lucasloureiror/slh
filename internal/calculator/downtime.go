@@ -27,7 +27,7 @@ func Calculate(input *Input) error {
 		return err
 	}
 	for index := range serviceLevels {
-		serviceLevels[index].availabilityInPercentage = sl
+		serviceLevels[index].data.availabilityInPercentage = sl
 	}
 
 	printMaximumDowntime(input.ServiceLevel)
@@ -44,9 +44,9 @@ func Calculate(input *Input) error {
 }
 
 func (s *serviceLevel) calculateDowntimeString() string {
-	s.availabilityInPercentage = s.availabilityInPercentage / 100
-	downtimePercentage := 1 - s.availabilityInPercentage
-	s.downtimeInSeconds = downtimePercentage * s.totalTimePeriod
-	downtimeString := convert.SecondsToTimeString(int(s.downtimeInSeconds))
+	s.data.availabilityInPercentage = s.data.availabilityInPercentage / 100
+	downtimePercentage := 1 - s.data.availabilityInPercentage
+	s.data.downtimeInSeconds = downtimePercentage * s.data.totalTimePeriod
+	downtimeString := convert.SecondsToTimeString(int(s.data.downtimeInSeconds))
 	return downtimeString
 }

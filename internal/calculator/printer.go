@@ -26,7 +26,7 @@ var substring = [5]string{"",
 	" (365 days)"}
 
 func substringInitializer() {
-	substring[0] += (" (" + fmt.Sprint(serviceLevels[0].hoursPerDay) + " hours)")
+	substring[0] += (" (" + fmt.Sprint(serviceLevels[0].data.hoursPerDay) + " hours)")
 }
 
 func errorPrinter(err error) {
@@ -54,8 +54,8 @@ func printMonitoringFrequency(input Input) error {
 	fmt.Println(message)
 
 	for index := range serviceLevels {
-		if serviceLevels[index].testingFrequencyNecessary != "" {
-			fmt.Println(serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].testingFrequencyNecessary)
+		if serviceLevels[index].data.testingFrequencyNecessary != "" {
+			fmt.Println(serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].data.testingFrequencyNecessary)
 		}
 	}
 
@@ -68,6 +68,6 @@ func printReverse(outage string) {
 	fmt.Println("Service Level for", outage, "of downtime:")
 
 	for index := range serviceLevels {
-		fmt.Println(serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].availabilityToString())
+		fmt.Println(serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].calculator.print(&serviceLevels[index].data))
 	}
 }

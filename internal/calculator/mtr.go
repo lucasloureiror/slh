@@ -32,9 +32,9 @@ func calculateMonitoringFrequency(mtr string, incidents int, probeFailures int) 
 	impossibleToMonitor := true
 
 	for i := range serviceLevels {
-		if int(serviceLevels[i].downtimeInSeconds) > mtrInSeconds {
-			Minimumfrequency := (int(serviceLevels[i].downtimeInSeconds) - mtrInSeconds) / (incidents * probeFailures)
-			serviceLevels[i].testingFrequencyNecessary = convert.SecondsToTimeString(Minimumfrequency)
+		if int(serviceLevels[i].data.downtimeInSeconds) > mtrInSeconds {
+			Minimumfrequency := (int(serviceLevels[i].data.downtimeInSeconds) - mtrInSeconds) / (incidents * probeFailures)
+			serviceLevels[i].data.testingFrequencyNecessary = convert.SecondsToTimeString(Minimumfrequency)
 			impossibleToMonitor = false
 		}
 	}

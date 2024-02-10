@@ -30,8 +30,8 @@ func populateServiceLevelData(serviceLevels *[5]serviceLevel, hoursPerDay int) {
 
 	for index := range serviceLevels {
 		serviceLevels[index].label = labels[index]
-		serviceLevels[index].totalTimePeriod = timePeriodInSeconds[index]
-		serviceLevels[index].hoursPerDay = hoursPerDay
+		serviceLevels[index].data.totalTimePeriod = timePeriodInSeconds[index]
+		serviceLevels[index].data.hoursPerDay = hoursPerDay
 	}
 
 }
