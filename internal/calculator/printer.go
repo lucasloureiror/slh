@@ -38,7 +38,7 @@ func printMaximumDowntime(sl string) {
 	message := "With a " + sl + "% Service Level, the maximum downtime allowed is:"
 
 	for index := range serviceLevels {
-		message += ("\n" + serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].calculateDowntimeString())
+		message += ("\n" + serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].calculator.print(&serviceLevels[index].data))
 	}
 
 	fmt.Println(message)
@@ -54,8 +54,11 @@ func printMonitoringFrequency(input Input) error {
 	fmt.Println(message)
 
 	for index := range serviceLevels {
-		if serviceLevels[index].data.testingFrequencyNecessary != "" {
-			fmt.Println(serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].data.testingFrequencyNecessary)
+		testingFrequencyNecessary := serviceLevels[index].calculator.print(&serviceLevels[index].data)
+		fmt.Println("testing frequency necessary for service level", index, ":", testingFrequencyNecessary)
+		if testingFrequencyNecessary != "" {
+			fmt.Println(serviceLevels[index].label + substring[index] + ": " + testingFrequencyNecessary)
+			continue
 		}
 	}
 

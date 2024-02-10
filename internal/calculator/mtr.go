@@ -17,24 +17,32 @@ package calculator
 
 import (
 	"errors"
+	"fmt"
+
 	"github.com/lucasloureiror/slh/internal/convert"
 )
 
 func calculateMonitoringFrequency(mtr string, incidents int, probeFailures int) error {
 
-	mtrInSeconds, err := convert.TimeStringToSeconds(mtr)
+	p := probeFrequencyCalculator{
+		incidents:      incidents,
+		probesFailures: probeFailures,
+	}
+	mttrInSeconds, err := convert.TimeStringToSeconds(mtr)
 
 	if err != nil {
 		return err
 	}
-	mtrInSeconds = mtrInSeconds * incidents
+	p.mttrInSeconds = mttrInSeconds * p.incidents
 
 	impossibleToMonitor := true
 
 	for i := range serviceLevels {
-		if int(serviceLevels[i].data.downtimeInSeconds) > mtrInSeconds {
-			Minimumfrequency := (int(serviceLevels[i].data.downtimeInSeconds) - mtrInSeconds) / (incidents * probeFailures)
-			serviceLevels[i].data.testingFrequencyNecessary = convert.SecondsToTimeString(Minimumfrequency)
+		sl := &serviceLevels[i]
+		sl.calculator = &p
+		sl.data.meanTimeToRecoveryInSeconds = p.mttrInSeconds
+		if int(sl.data.downtimeInSeconds) > p.mttrInSeconds {
+			sl.calculator.calculate(&sl.data)
 			impossibleToMonitor = false
 		}
 	}
@@ -45,4 +53,16 @@ func calculateMonitoringFrequency(mtr string, incidents int, probeFailures int) 
 
 	return nil
 
+}
+
+func (p *probeFrequencyCalculator) calculate(data *serviceLevelData) {
+	p.minimumFrequency = (data.downtimeInSeconds) - float64(data.meanTimeToRecoveryInSeconds)/(float64(p.incidents)*float64(p.probesFailures))
+	fmt.Println("seconds: ", p.minimumFrequency)
+	fmt.Println("probing frequency: ", p.print(data))
+}
+
+func (p *probeFrequencyCalculator) print(data *serviceLevelData) string {
+	got := convert.SecondsToTimeString(int(p.minimumFrequency))
+	fmt.Println("seconds: ", p.minimumFrequency, "got: ", got)
+	return convert.SecondsToTimeString(int(p.minimumFrequency))
 }

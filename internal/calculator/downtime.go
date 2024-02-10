@@ -23,10 +23,13 @@ func Calculate(input *Input) error {
 	populateServiceLevelData(&serviceLevels, input.HoursPerDay)
 	sl, err := checkSLInput(&input.ServiceLevel)
 
+	downtimeCalculator := downtimeCalculator{}
+
 	if err != nil {
 		return err
 	}
 	for index := range serviceLevels {
+		serviceLevels[index].calculator = &downtimeCalculator
 		serviceLevels[index].data.availabilityInPercentage = sl
 	}
 
@@ -43,10 +46,14 @@ func Calculate(input *Input) error {
 	return nil
 }
 
-func (s *serviceLevel) calculateDowntimeString() string {
-	s.data.availabilityInPercentage = s.data.availabilityInPercentage / 100
-	downtimePercentage := 1 - s.data.availabilityInPercentage
-	s.data.downtimeInSeconds = downtimePercentage * s.data.totalTimePeriod
-	downtimeString := convert.SecondsToTimeString(int(s.data.downtimeInSeconds))
+func (d *downtimeCalculator) calculate(data *serviceLevelData) {
+	data.downtimeInSeconds = data.totalTimePeriod * (1 - data.availabilityInPercentage/100)
+}
+
+func (d *downtimeCalculator) print(data *serviceLevelData) string {
+	data.availabilityInPercentage = data.availabilityInPercentage / 100
+	downtimePercentage := 1 - data.availabilityInPercentage
+	data.downtimeInSeconds = downtimePercentage * data.totalTimePeriod
+	downtimeString := convert.SecondsToTimeString(int(data.downtimeInSeconds))
 	return downtimeString
 }

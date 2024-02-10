@@ -20,9 +20,12 @@ import (
 )
 
 func TestCalculateDowntimeString(t *testing.T) {
-	s := serviceLevel{data: serviceLevelData{totalTimePeriod: 86400, availabilityInPercentage: 99.99}}
+	s := serviceLevel{data: serviceLevelData{totalTimePeriod: 86400, availabilityInPercentage: 99.99},
+		calculator: &downtimeCalculator{},
+	}
 	expected := "8s"
-	if s.calculateDowntimeString() != expected {
-		t.Errorf("Expected %s, got %s", expected, s.calculateDowntimeString())
+	got := s.calculator.print(&s.data)
+	if got != expected {
+		t.Errorf("Expected %s, got %s", expected, got)
 	}
 }
