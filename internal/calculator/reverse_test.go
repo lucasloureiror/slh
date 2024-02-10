@@ -21,7 +21,7 @@ import (
 )
 
 func TestReverseCalculate(t *testing.T) {
-	s := serviceLevel{data: serviceLevelData{downtimeInSeconds: 86400},
+	s := serviceLevel{data: serviceLevelData{totalTimePeriod: 86400, downtimeInSeconds: 8.0},
 		calculator: &reverseCalculator{},
 	}
 	s.calculator.calculate(&s.data)
