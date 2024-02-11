@@ -32,10 +32,9 @@ type Calculator interface {
 type downtimeCalculator struct{}
 
 type probeFrequencyCalculator struct {
-	incidents        int
-	mttrInSeconds    int
-	probesFailures   int
-	minimumFrequency float64
+	incidents      int
+	mttrInSeconds  int
+	probesFailures int
 }
 
 type reverseCalculator struct{}
@@ -46,6 +45,7 @@ type serviceLevelData struct {
 	availabilityInPercentage    float64
 	downtimeInSeconds           float64
 	totalTimePeriod             float64
+	minimumFrequency            float64
 }
 
 type serviceLevel struct {

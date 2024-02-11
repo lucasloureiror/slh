@@ -55,10 +55,8 @@ func printMonitoringFrequency(input Input) error {
 
 	for index := range serviceLevels {
 		testingFrequencyNecessary := serviceLevels[index].calculator.print(&serviceLevels[index].data)
-		fmt.Println("testing frequency necessary for service level", index, ":", testingFrequencyNecessary)
-		if testingFrequencyNecessary != "" {
+		if testingFrequencyNecessary != "0s" {
 			fmt.Println(serviceLevels[index].label + substring[index] + ": " + testingFrequencyNecessary)
-			continue
 		}
 	}
 
