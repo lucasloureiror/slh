@@ -19,34 +19,20 @@ import (
 	"github.com/lucasloureiror/slh/internal/convert"
 )
 
-func Calculate(input *Input) error {
-	populateServiceLevelData(&serviceLevels, input.HoursPerDay)
+func (d DowntimeCalculator) calculate(data *serviceLevelData, input Input) {
 	sl, err := checkSLInput(&input.ServiceLevel)
-
 	if err != nil {
-		return err
+		errorPrinter(err)
+		return
 	}
-	for index := range serviceLevels {
-		serviceLevels[index].availabilityInPercentage = sl
-	}
-
-	printMaximumDowntime(input.ServiceLevel)
-
-	if input.MTTR != "" {
-		err := calculateMonitoringFrequency(input.MTTR, input.Incidents, input.ProbeFailures)
-		if err != nil {
-			errorPrinter(err)
-			return err
-		}
-		printMonitoringFrequency(*input)
-	}
-	return nil
+	data.availabilityInPercentage = sl
+	data.downtimeInSeconds = data.totalTimePeriod * (1 - data.availabilityInPercentage/100)
 }
 
-func (s *serviceLevel) calculateDowntimeString() string {
-	s.availabilityInPercentage = s.availabilityInPercentage / 100
-	downtimePercentage := 1 - s.availabilityInPercentage
-	s.downtimeInSeconds = downtimePercentage * s.totalTimePeriod
-	downtimeString := convert.SecondsToTimeString(int(s.downtimeInSeconds))
+func (d DowntimeCalculator) print(data *serviceLevelData) string {
+	data.availabilityInPercentage = data.availabilityInPercentage / 100
+	downtimePercentage := 1 - data.availabilityInPercentage
+	data.downtimeInSeconds = downtimePercentage * data.totalTimePeriod
+	downtimeString := convert.SecondsToTimeString(int(data.downtimeInSeconds))
 	return downtimeString
 }

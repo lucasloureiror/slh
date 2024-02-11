@@ -21,10 +21,13 @@ import (
 )
 
 func TestReverseCalculate(t *testing.T) {
-	s := serviceLevel{totalTimePeriod: 86400}
-	s.reverseCalculate(8)
+	s := serviceLevel{data: serviceLevelData{totalTimePeriod: 86400, downtimeInSeconds: 8.0},
+		calculator: &ReverseCalculator{},
+	}
+	i := Input{TotalOutageTime: "8s"}
+	s.calculator.calculate(&s.data, i)
 	expectedSubstring := "99.99"
-	got := s.availabilityToString()
+	got := s.calculator.print(&s.data)
 	expected := strings.Contains(got, expectedSubstring)
 
 	if expected != true {

@@ -25,24 +25,32 @@ var substring = [5]string{"",
 	" (90 days)",
 	" (365 days)"}
 
-func substringInitializer() {
-	substring[0] += (" (" + fmt.Sprint(serviceLevels[0].hoursPerDay) + " hours)")
-}
-
-func errorPrinter(err error) {
-	fmt.Println(err)
-}
-
-func printMaximumDowntime(sl string) {
+func output(calculator Calculator, input Input) {
 	substringInitializer()
-	message := "With a " + sl + "% Service Level, the maximum downtime allowed is:"
+	var message string
+	if _, ok := calculator.(DowntimeCalculator); ok {
+		message = "With a " + input.ServiceLevel + "% Service Level, the maximum downtime allowed is:"
+	} else if _, ok := calculator.(ReverseCalculator); ok {
+		message = "Service Level for " + input.TotalOutageTime + " of downtime:"
+	}
 
 	for index := range serviceLevels {
-		message += ("\n" + serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].calculateDowntimeString())
+		message += ("\n" + serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].calculator.print(&serviceLevels[index].data))
 	}
 
 	fmt.Println(message)
 
+	if _, ok := calculator.(ProbeFrequencyCalculator); ok {
+		printMonitoringFrequency(input)
+	}
+
+}
+func substringInitializer() {
+	substring[0] += (" (" + fmt.Sprint(serviceLevels[0].data.hoursPerDay) + " hours)")
+}
+
+func errorPrinter(err error) {
+	fmt.Println(err)
 }
 
 func printMonitoringFrequency(input Input) error {
@@ -54,20 +62,12 @@ func printMonitoringFrequency(input Input) error {
 	fmt.Println(message)
 
 	for index := range serviceLevels {
-		if serviceLevels[index].testingFrequencyNecessary != "" {
-			fmt.Println(serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].testingFrequencyNecessary)
+		testingFrequencyNecessary := serviceLevels[index].calculator.print(&serviceLevels[index].data)
+		if testingFrequencyNecessary != "0s" {
+			fmt.Println(serviceLevels[index].label + substring[index] + ": " + testingFrequencyNecessary)
 		}
 	}
 
 	return nil
 
-}
-
-func printReverse(outage string) {
-	substringInitializer()
-	fmt.Println("Service Level for", outage, "of downtime:")
-
-	for index := range serviceLevels {
-		fmt.Println(serviceLevels[index].label + substring[index] + ": " + serviceLevels[index].availabilityToString())
-	}
 }

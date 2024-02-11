@@ -65,7 +65,8 @@ func Start() {
 						return fmt.Errorf("you need to specify the total duration of downtime in the correct format, see help for instructions")
 					}
 					input.TotalOutageTime = c.Args().First()
-					calculator.Reverse(input.TotalOutageTime, input.HoursPerDay)
+					reverseCalculator := calculator.ReverseCalculator{}
+					calculator.Start(reverseCalculator, input)
 					return nil
 				},
 			},
@@ -79,6 +80,12 @@ func Start() {
 					"\nExample for 30 minutes MTR: slh --mtr 0h30m 99.95" +
 					"\nExample for 1 hour MTR: slh --mtr 1h0m 99.95",
 				Destination: &input.MTTR,
+				Action: func(ctx *cli.Context, m string) error {
+					if m == "" {
+						return fmt.Errorf("you need to specify a MTTR duration with --mttr or -m")
+					}
+					return nil
+				},
 			},
 			&cli.IntFlag{
 				Name:        "incidents",
@@ -141,7 +148,8 @@ func Start() {
 				return fmt.Errorf("you need to specify one Service Level percentage")
 			}
 			input.ServiceLevel = ctx.Args().First()
-			calculator.Calculate(&input)
+			downtimeCalculator := calculator.DowntimeCalculator{}
+			calculator.Start(downtimeCalculator, input)
 
 			return nil
 		},

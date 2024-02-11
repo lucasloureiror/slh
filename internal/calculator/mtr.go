@@ -16,33 +16,14 @@ limitations under the License.
 package calculator
 
 import (
-	"errors"
 	"github.com/lucasloureiror/slh/internal/convert"
 )
 
-func calculateMonitoringFrequency(mtr string, incidents int, probeFailures int) error {
+func (p ProbeFrequencyCalculator) calculate(data *serviceLevelData, input Input) {
+	data.minimumFrequency = (data.downtimeInSeconds - float64(data.meanTimeToRecoveryInSeconds)) / (float64(input.Incidents) * float64(input.ProbeFailures))
+}
 
-	mtrInSeconds, err := convert.TimeStringToSeconds(mtr)
-
-	if err != nil {
-		return err
-	}
-	mtrInSeconds = mtrInSeconds * incidents
-
-	impossibleToMonitor := true
-
-	for i := range serviceLevels {
-		if int(serviceLevels[i].downtimeInSeconds) > mtrInSeconds {
-			Minimumfrequency := (int(serviceLevels[i].downtimeInSeconds) - mtrInSeconds) / (incidents * probeFailures)
-			serviceLevels[i].testingFrequencyNecessary = convert.SecondsToTimeString(Minimumfrequency)
-			impossibleToMonitor = false
-		}
-	}
-
-	if impossibleToMonitor {
-		return errors.New("\nYou can't monitor this service with this MTTR without violating the Service Level")
-	}
-
-	return nil
-
+func (p ProbeFrequencyCalculator) print(data *serviceLevelData) string {
+	got := convert.SecondsToTimeString(int(data.minimumFrequency))
+	return got
 }

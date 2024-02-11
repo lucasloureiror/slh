@@ -24,11 +24,28 @@ type Input struct {
 	Incidents       int
 }
 
+type Calculator interface {
+	calculate(data *serviceLevelData, input Input)
+	print(data *serviceLevelData) string
+}
+
+type DowntimeCalculator struct{}
+
+type ProbeFrequencyCalculator struct{}
+
+type ReverseCalculator struct{}
+
+type serviceLevelData struct {
+	hoursPerDay                 int
+	meanTimeToRecoveryInSeconds int
+	availabilityInPercentage    float64
+	downtimeInSeconds           float64
+	totalTimePeriod             float64
+	minimumFrequency            float64
+}
+
 type serviceLevel struct {
-	label                     string
-	hoursPerDay               int
-	availabilityInPercentage  float64
-	downtimeInSeconds         float64
-	totalTimePeriod           float64
-	testingFrequencyNecessary string
+	label      string
+	data       serviceLevelData
+	calculator Calculator
 }
