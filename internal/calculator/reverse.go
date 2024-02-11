@@ -20,32 +20,17 @@ import (
 	"github.com/lucasloureiror/slh/internal/convert"
 )
 
-func Reverse(outage string, hoursPerDay int) {
-	seconds, err := convert.TimeStringToSeconds(outage)
+func (r ReverseCalculator) print(data *serviceLevelData) string {
+	return fmt.Sprintf("%.5f", data.availabilityInPercentage) + "%"
+}
+
+func (r ReverseCalculator) calculate(data *serviceLevelData, input Input) {
+	seconds, err := convert.TimeStringToSeconds(input.TotalOutageTime)
 	if err != nil {
 		errorPrinter(err)
 		return
 	}
-
-	populateServiceLevelData(&serviceLevels, hoursPerDay)
-	reverseCalculator := reverseCalculator{}
-
-	for index := range serviceLevels {
-		serviceLevels[index].data.downtimeInSeconds = float64(seconds)
-		serviceLevels[index].calculator = &reverseCalculator
-		serviceLevels[index].calculator.calculate(&serviceLevels[index].data)
-	}
-
-	printReverse(outage)
-
-}
-
-func (r *reverseCalculator) print(data *serviceLevelData) string {
-	return fmt.Sprintf("%.5f", data.availabilityInPercentage) + "%"
-}
-
-func (r *reverseCalculator) calculate(data *serviceLevelData) {
-
+	data.downtimeInSeconds = float64(seconds)
 	if data.totalTimePeriod > data.downtimeInSeconds {
 		data.availabilityInPercentage = (100 - data.downtimeInSeconds/data.totalTimePeriod*100)
 	}

@@ -19,9 +19,9 @@ import (
 	"testing"
 )
 
-func TestCalculateDowntimeString(t *testing.T) {
+func TestDowntimePrint(t *testing.T) {
 	s := serviceLevel{data: serviceLevelData{totalTimePeriod: 86400, availabilityInPercentage: 99.99},
-		calculator: &downtimeCalculator{},
+		calculator: &DowntimeCalculator{},
 	}
 	expected := "8s"
 	got := s.calculator.print(&s.data)

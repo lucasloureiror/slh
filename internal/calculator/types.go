@@ -25,19 +25,15 @@ type Input struct {
 }
 
 type Calculator interface {
-	calculate(data *serviceLevelData)
+	calculate(data *serviceLevelData, input Input)
 	print(data *serviceLevelData) string
 }
 
-type downtimeCalculator struct{}
+type DowntimeCalculator struct{}
 
-type probeFrequencyCalculator struct {
-	incidents      int
-	mttrInSeconds  int
-	probesFailures int
-}
+type ProbeFrequencyCalculator struct{}
 
-type reverseCalculator struct{}
+type ReverseCalculator struct{}
 
 type serviceLevelData struct {
 	hoursPerDay                 int

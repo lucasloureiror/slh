@@ -16,48 +16,14 @@ limitations under the License.
 package calculator
 
 import (
-	"errors"
-
 	"github.com/lucasloureiror/slh/internal/convert"
 )
 
-func calculateMonitoringFrequency(mtr string, incidents int, probeFailures int) error {
-
-	p := probeFrequencyCalculator{
-		incidents:      incidents,
-		probesFailures: probeFailures,
-	}
-	mttrInSeconds, err := convert.TimeStringToSeconds(mtr)
-
-	if err != nil {
-		return err
-	}
-	p.mttrInSeconds = mttrInSeconds * p.incidents
-
-	impossibleToMonitor := true
-
-	for i := range serviceLevels {
-		serviceLevels[i].calculator = &p
-		serviceLevels[i].data.meanTimeToRecoveryInSeconds = p.mttrInSeconds
-		if int(serviceLevels[i].data.downtimeInSeconds) > p.mttrInSeconds {
-			serviceLevels[i].calculator.calculate(&serviceLevels[i].data)
-			impossibleToMonitor = false
-		}
-	}
-
-	if impossibleToMonitor {
-		return errors.New("\nYou can't monitor this service with this MTTR without violating the Service Level")
-	}
-
-	return nil
-
+func (p ProbeFrequencyCalculator) calculate(data *serviceLevelData, input Input) {
+	data.minimumFrequency = (data.downtimeInSeconds - float64(data.meanTimeToRecoveryInSeconds)) / (float64(input.Incidents) * float64(input.ProbeFailures))
 }
 
-func (p *probeFrequencyCalculator) calculate(data *serviceLevelData) {
-	data.minimumFrequency = (data.downtimeInSeconds - float64(data.meanTimeToRecoveryInSeconds)) / (float64(p.incidents) * float64(p.probesFailures))
-}
-
-func (p *probeFrequencyCalculator) print(data *serviceLevelData) string {
+func (p ProbeFrequencyCalculator) print(data *serviceLevelData) string {
 	got := convert.SecondsToTimeString(int(data.minimumFrequency))
 	return got
 }
