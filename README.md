@@ -27,8 +27,15 @@ The full documentation for Service Level Helper (slh) is available on [slh.loure
 
 ## Installation
 
+You can install slh with [Homebrew](https://brew.sh/). Just run the following command:
 
-To install Service Level Helper, you need to have Go installed on your machine. If you don't have Go installed, you can download it from the [official Go website](https://golang.org/dl/).
+```bash
+brew install lucasloureiror/tools/slh   
+```
+
+Or you can install with Go install command:
+
+You need to have Go installed on your machine. If you don't have Go installed, you can download it from the [official Go website](https://golang.org/dl/).
 
 Once you have Go installed, you can install Service Level Helper by running the following command:
 

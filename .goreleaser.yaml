@@ -34,7 +34,7 @@ brews:
     homepage: https://github.com/lucasloureiror/slh
     repository:
       owner: lucasloureiror
-      name: homebrew-lucasloureiror
+      name: homebrew-tools
 
 changelog:
   sort: asc
