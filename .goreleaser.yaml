@@ -31,10 +31,10 @@ archives:
 
 brews:
   - name: slh
-    homepage: https://github.com/lucasloureiror/homebrew-lucasloureiror 
-    tap:
+    homepage: https://github.com/lucasloureirorslh
+    repository:
       owner: lucasloureiror
-      name: homebrew-slh
+      name: homebrew-lucasloureiror
 
 changelog:
   sort: asc
