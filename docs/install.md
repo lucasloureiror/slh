@@ -8,9 +8,9 @@ brew install lucasloureiror/tools/slh
 ```
 
 ## Go pkg
-Or you can install with Go install command:
+You can also install with Go install command directly:
 
-You need to have Go installed on your machine. If you don't have Go installed, you can download it from the [official Go website](https://golang.org/dl/).
+You need Go installed on your machine. If you don't have Go installed, you can download it from the [official Go website](https://golang.org/dl/).
 
 Once you have Go installed, you can install Service Level Helper by running the following command:
 
