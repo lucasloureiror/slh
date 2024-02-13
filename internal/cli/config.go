@@ -33,7 +33,7 @@ func Start() {
 	app := &cli.App{
 		Name:                 "slh",
 		Usage:                "Service Level Helper is a CLI tool for calculating Service Level related metrics like SLO, SLA, Error Budgets and probing frequency to maintain SLO.",
-		Version:              "v0.4.0",
+		Version:              "v0.5.3",
 		EnableBashCompletion: true,
 		Commands: []*cli.Command{
 			{
