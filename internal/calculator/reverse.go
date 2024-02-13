@@ -17,14 +17,16 @@ package calculator
 
 import (
 	"fmt"
+
 	"github.com/lucasloureiror/slh/internal/convert"
 )
 
 func (r ReverseCalculator) print(data *serviceLevelData) string {
-	return fmt.Sprintf("%.5f", data.availabilityInPercentage) + "%"
+	truncatedAvailability := convert.TruncateFloat(data.availabilityInPercentage, 4)
+	return fmt.Sprintf("%.4f", truncatedAvailability) + "%"
 }
 
-func (r ReverseCalculator) calculate(data *serviceLevelData, input Input) {
+func (r ReverseCalculator) calculate(data *serviceLevelData, input *Input) {
 	seconds, err := convert.TimeStringToSeconds(input.TotalOutageTime)
 	if err != nil {
 		errorPrinter(err)

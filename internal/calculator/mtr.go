@@ -19,7 +19,7 @@ import (
 	"github.com/lucasloureiror/slh/internal/convert"
 )
 
-func (p ProbeFrequencyCalculator) calculate(data *serviceLevelData, input Input) {
+func (p ProbeFrequencyCalculator) calculate(data *serviceLevelData, input *Input) {
 	data.minimumFrequency = (data.downtimeInSeconds - float64(data.meanTimeToRecoveryInSeconds)) / (float64(input.Incidents) * float64(input.ProbeFailures))
 }
 

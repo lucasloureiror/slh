@@ -18,7 +18,7 @@ func TestCalculateMinimumFrequency(t *testing.T) {
 		ProbeFailures: 2,
 		Incidents:     3}
 
-	sl.calculator.calculate(&sl.data, i)
+	sl.calculator.calculate(&sl.data, &i)
 
 	got := sl.data.minimumFrequency
 	expected := 408.0
@@ -38,7 +38,7 @@ func TestPrintMinimumFrequency(t *testing.T) {
 			totalTimePeriod:             604800},
 		calculator: &p,
 	}
-	sl.calculator.calculate(&sl.data, Input{ProbeFailures: 2, Incidents: 3})
+	sl.calculator.calculate(&sl.data, &Input{ProbeFailures: 2, Incidents: 3})
 	got := sl.calculator.print(&sl.data)
 	expected := "6m 48s"
 

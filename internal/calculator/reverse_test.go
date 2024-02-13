@@ -25,7 +25,7 @@ func TestReverseCalculate(t *testing.T) {
 		calculator: &ReverseCalculator{},
 	}
 	i := Input{TotalOutageTime: "8s"}
-	s.calculator.calculate(&s.data, i)
+	s.calculator.calculate(&s.data, &i)
 	expectedSubstring := "99.99"
 	got := s.calculator.print(&s.data)
 	expected := strings.Contains(got, expectedSubstring)

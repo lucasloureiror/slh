@@ -25,7 +25,7 @@ type Input struct {
 }
 
 type Calculator interface {
-	calculate(data *serviceLevelData, input Input)
+	calculate(data *serviceLevelData, input *Input)
 	print(data *serviceLevelData) string
 }
 

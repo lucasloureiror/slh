@@ -29,3 +29,18 @@ func TestDowntimePrint(t *testing.T) {
 		t.Errorf("Expected %s, got %s", expected, got)
 	}
 }
+
+func TestDowntimePrintCalculate(t *testing.T) {
+	s := serviceLevel{data: serviceLevelData{totalTimePeriod: 86400},
+		calculator: &DowntimeCalculator{},
+	}
+	s.calculator.calculate(&s.data, &Input{
+		HoursPerDay:  24,
+		ServiceLevel: "4",
+	})
+	expected := "8s"
+	got := s.calculator.print(&s.data)
+	if got != expected {
+		t.Errorf("Expected %s, got %s", expected, got)
+	}
+}

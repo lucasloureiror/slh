@@ -25,7 +25,7 @@ func Start(calculator Calculator, input Input) error {
 
 	for i := range serviceLevels {
 		serviceLevels[i].calculator = calculator
-		serviceLevels[i].calculator.calculate(&serviceLevels[i].data, input)
+		serviceLevels[i].calculator.calculate(&serviceLevels[i].data, &input)
 	}
 
 	output(calculator, input)
@@ -58,7 +58,7 @@ func startMonitoringFrequency(input Input) error {
 		serviceLevels[i].calculator = p
 		serviceLevels[i].data.meanTimeToRecoveryInSeconds = mttrInSeconds
 		if int(serviceLevels[i].data.downtimeInSeconds) > serviceLevels[i].data.meanTimeToRecoveryInSeconds {
-			serviceLevels[i].calculator.calculate(&serviceLevels[i].data, input)
+			serviceLevels[i].calculator.calculate(&serviceLevels[i].data, &input)
 			impossibleToMonitor = false
 		}
 	}

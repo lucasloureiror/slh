@@ -33,7 +33,7 @@ func checkSLInput(input *string) (float64, error) {
 	}
 
 	if sla < 16 && sla > 1 {
-		*input = fmt.Sprint(sla) + " nines or 99."
+		*input = "99."
 		for i := 0; i < int(sla)-2; i++ {
 			*input += "9"
 		}

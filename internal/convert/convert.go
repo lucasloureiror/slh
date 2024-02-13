@@ -17,6 +17,7 @@ package convert
 
 import (
 	"fmt"
+	"math"
 	"regexp"
 	"strconv"
 )
@@ -91,4 +92,9 @@ func TimeStringToSeconds(mtr string) (int, error) {
 
 	result := days*86400 + hours*3600 + minutes*60 + seconds
 	return result, nil
+}
+
+func TruncateFloat(f float64, precision int) float64 {
+	shift := math.Pow(10, float64(precision))
+	return math.Trunc(shift*f+0.5) / shift
 }

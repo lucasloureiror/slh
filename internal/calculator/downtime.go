@@ -19,7 +19,7 @@ import (
 	"github.com/lucasloureiror/slh/internal/convert"
 )
 
-func (d DowntimeCalculator) calculate(data *serviceLevelData, input Input) {
+func (d DowntimeCalculator) calculate(data *serviceLevelData, input *Input) {
 	sl, err := checkSLInput(&input.ServiceLevel)
 	if err != nil {
 		errorPrinter(err)
