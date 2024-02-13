@@ -2,10 +2,15 @@ package main
 
 import (
 	"github.com/lucasloureiror/slh/internal/cli"
+	"os"
 )
 
 func main() {
 
-	cli.Start()
+	version:= os.Getenv("VERSION")
+	if version == "" {
+		version = "local dev build"
+	}
+	cli.Start(version)
 
 }

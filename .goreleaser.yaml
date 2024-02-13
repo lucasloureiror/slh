@@ -7,6 +7,8 @@ before:
 builds:
   - env:
       - CGO_ENABLED=0
+      #Set version to the VERSION env variable
+      - VERSION=${{ .Env.VERSION }}
     goos:
       - linux
       - windows

@@ -28,12 +28,12 @@ import (
 
 var input calculator.Input
 
-func Start() {
+func Start(version string) {
 
 	app := &cli.App{
 		Name:                 "slh",
 		Usage:                "Service Level Helper is a CLI tool for calculating Service Level related metrics like SLO, SLA, Error Budgets and probing frequency to maintain SLO.",
-		Version:              "v0.5.3",
+		Version:              version,
 		EnableBashCompletion: true,
 		Commands: []*cli.Command{
 			{

@@ -10,6 +10,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    env:
+      VERSION: ${{github.ref_name}}
     steps:
     - uses: actions/checkout@v3
 
@@ -23,10 +25,12 @@ jobs:
       run: go mod tidy
 
     - name: Build
-      run: go build
+      run: echo $VERSION &&go build
 
   test:
     runs-on: ubuntu-latest
+    env:
+      VERSION: ${{github.ref_name}}
     steps:
     - uses: actions/checkout@v3
 
