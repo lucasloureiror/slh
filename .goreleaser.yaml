@@ -31,7 +31,7 @@ archives:
 
 brews:
   - name: slh
-    homepage: https://github.com/lucasloureirorslh
+    homepage: https://github.com/lucasloureiror/slh
     repository:
       owner: lucasloureiror
       name: homebrew-lucasloureiror
