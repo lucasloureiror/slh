@@ -29,6 +29,13 @@ archives:
       - goos: windows
         format: zip
 
+brews:
+  - name: slh
+    homepage: https://github.com/lucasloureiror/homebrew-lucasloureiror 
+    tap:
+      owner: lucasloureiror
+      name: homebrew-slh
+
 changelog:
   sort: asc
   filters:

@@ -6,7 +6,7 @@ import (
 
 func main() {
 
-	version := "v0.5.4"
+	version := "v0.5.3"
 	cli.Start(version)
 
 }
