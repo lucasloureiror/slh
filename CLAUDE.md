@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm test      # node --test test/ (what CI runs)
+npm test      # node --test, which finds test/*.test.js (what CI runs)
 npm start     # python3 -m http.server -d docs 8000, then open http://localhost:8000
 ```
 

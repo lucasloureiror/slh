@@ -4,7 +4,7 @@
   "description": "Service Level Helper",
   "license": "Apache-2.0",
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test",
     "start": "python3 -m http.server -d docs 8000"
   }
 }
