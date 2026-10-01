@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Service Level Helper</title>
+<meta name="description" content="Turn an SLO or SLA into a downtime budget, find the minimum probing frequency, or work out availability from downtime.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html" aria-label="slh home"><b>slh</b></a>
+    <nav aria-label="Sections">
+      <a href="index.html" aria-current="page">Calculator</a>
+      <a href="usage.html">Usage</a>
+      <a href="probe.html">Probe algorithm</a>
+      <a href="faq.html">FAQ</a>
+      <a class="nav-ext" href="https://github.com/lucasloureiror/slh">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="intro">
+      <h1 id="headline">How much downtime does <em>99.9%</em> allow?</h1>
+      <p>Service Level Helper turns an SLO or SLA into an error budget for every period, finds how often you need to probe to stay inside it, and works back from downtime to availability.</p>
+    </div>
+
+    <section id="calculator" aria-label="Calculator">
+      <form class="console" id="form" autocomplete="off" novalidate>
+        <div class="inputs">
+          <div class="modes" role="tablist" aria-label="Calculation">
+            <button type="button" role="tab" id="mode-budget" aria-selected="true" data-mode="budget">Error budget</button>
+            <button type="button" role="tab" id="mode-reverse" aria-selected="false" data-mode="reverse">Reverse</button>
+          </div>
+
+          <div class="field" data-for="budget">
+            <label for="sl">Service level</label>
+            <input type="text" id="sl" inputmode="decimal" value="99.9" aria-describedby="sl-hint">
+            <span class="hint" id="sl-hint">A percentage like 99.95, or a number of nines like 4.</span>
+            <div id="presets">
+              <div class="nines" role="group" aria-label="Number of nines">
+                <button type="button" data-sl="99"><b>99%</b><span>2 nines</span><small>S3 Standard-IA</small></button>
+                <button type="button" data-sl="99.9"><b>99.9%</b><span>3 nines</span><small>S3 Standard</small></button>
+                <button type="button" data-sl="99.99"><b>99.99%</b><span>4 nines</span><small>DynamoDB, EC2 multi-AZ</small></button>
+                <button type="button" data-sl="99.999"><b>99.999%</b><span>5 nines</span><small>DynamoDB global tables</small></button>
+              </div>
+              <div class="chips" role="group" aria-label="Other common service levels">
+                <button type="button" data-sl="99.5">99.5% <small>EC2 instance</small></button>
+                <button type="button" data-sl="99.95">99.95%</button>
+              </div>
+              <span class="hint">Examples are AWS <a href="https://aws.amazon.com/legal/service-level-agreements/">SLA commitments</a> for monthly uptime.</span>
+            </div>
+          </div>
+
+          <div class="field" data-for="reverse" hidden>
+            <span class="label" id="outage-label">Total downtime</span>
+            <div class="duration" role="group" aria-labelledby="outage-label" aria-describedby="outage-hint">
+              <div><label for="out-d">Days</label><input type="number" id="out-d" min="0" step="1" value="0" inputmode="numeric"></div>
+              <div><label for="out-h">Hours</label><input type="number" id="out-h" min="0" step="1" value="5" inputmode="numeric"></div>
+              <div><label for="out-m">Minutes</label><input type="number" id="out-m" min="0" step="1" value="45" inputmode="numeric"></div>
+              <div><label for="out-s">Seconds</label><input type="number" id="out-s" min="0" step="1" value="30" inputmode="numeric"></div>
+            </div>
+            <span class="hint" id="outage-hint">Add up all the outages in the period. 90 minutes works as well as 1 hour 30 minutes.</span>
+          </div>
+
+          <div class="field">
+            <label for="hours">Hours per day</label>
+            <input type="number" id="hours" min="1" max="24" step="1" value="24" aria-describedby="hours-hint">
+            <span class="hint" id="hours-hint">Use fewer than 24 for a service that only has to be up during business hours.</span>
+          </div>
+
+          <div data-for="budget" class="field">
+            <label class="toggle" style="text-transform:none;letter-spacing:0;font-size:15px;color:var(--fg)"><input type="checkbox" id="probe-on"> Add probe frequency</label>
+            <div class="probe-fields" id="probe-fields" hidden>
+              <div class="field">
+                <label for="mttr">Mean time to repair</label>
+                <input type="text" id="mttr" value="0h20m" aria-describedby="mttr-hint">
+                <span class="hint" id="mttr-hint">Like 0h20m or 1h.</span>
+              </div>
+              <div class="row2">
+                <div class="field">
+                  <label for="incidents">Incidents</label>
+                  <input type="number" id="incidents" min="1" step="1" value="3">
+                </div>
+                <div class="field">
+                  <label for="probes">Probes to alert</label>
+                  <input type="number" id="probes" min="1" step="1" value="2">
+                </div>
+              </div>
+              <span class="hint">Incidents you expect per period, and failed probes needed before an alert fires.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="results" aria-live="polite">
+          <div class="summary" id="summary"></div>
+          <p class="error" id="error" hidden></p>
+          <div class="table-scroll"><table id="table"></table></div>
+          <div class="legend" id="legend" hidden><span class="l-repair">Repair time (MTTR × incidents)</span><span class="l-buffer">Left for detection</span></div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <span>Service Level Helper is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.</span>
+    <span><a href="https://github.com/lucasloureiror/slh">Source on GitHub</a></span>
+  </footer>
+</div>
+<script src="calc.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

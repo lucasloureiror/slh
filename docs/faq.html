@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FAQ · Service Level Helper</title>
+<meta name="description" content="Answers about periods, number-of-nines shorthand, hours per day, and sharing calculations in Service Level Helper.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html" aria-label="slh home"><b>slh</b></a>
+    <nav aria-label="Sections">
+      <a href="index.html">Calculator</a>
+      <a href="usage.html">Usage</a>
+      <a href="probe.html">Probe algorithm</a>
+      <a href="faq.html" aria-current="page">FAQ</a>
+      <a class="nav-ext" href="https://github.com/lucasloureiror/slh">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="doc">
+      <h1>FAQ</h1>
+      <dl class="faq">
+        <dt>How long is a month?</dt>
+        <dd>An average month of 30.44 days. Quarters are 90 days and years are 365 days.</dd>
+        <dt>Why does 5 mean 99.999% and not 5%?</dt>
+        <dd>Any value from 1 up to (but not including) 16 is read as a number of nines, so <code>1</code> is 90%, <code>3</code> is 99.9% and <code>3.5</code> is 99.968%. Service levels that low aren't realistic targets, so the shorthand takes priority. If you do mean a plain percentage, add the percent sign: <code>5%</code> is 5%.</dd>
+        <dt>What does hours per day change?</dt>
+        <dd>It shortens every period. With 12 hours, a week is 7 × 12 hours, which suits a service that only has to be up during business hours. It applies to reverse calculations too.</dd>
+        <dt>Why is a period marked as not achievable?</dt>
+        <dd>The repair time for your expected incidents (MTTR × incidents) already uses up the whole downtime budget for that period, so there's no time left to detect them. Lower the MTTR or the incident count, or pick a longer period.</dd>
+        <dt>How do I write the mean time to repair?</dt>
+        <dd>Days, hours, minutes and seconds in that order, each optional: <code>1d</code>, <code>90m</code>, <code>1h30m</code>, <code>2d4h</code>.</dd>
+        <dt>Can I share a calculation?</dt>
+        <dd>Yes. The page address updates as you type, so copying it shares the same inputs.</dd>
+      </dl>
+    </article>
+  </main>
+
+  <footer>
+    <span>Service Level Helper is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.</span>
+    <span><a href="https://github.com/lucasloureiror/slh">Source on GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
