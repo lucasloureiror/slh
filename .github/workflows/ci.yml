@@ -1,4 +1,4 @@
-name: Go
+name: Test
 
 on:
   push:
@@ -7,41 +7,14 @@ on:
     branches: [ "main" ]
 
 jobs:
-
-  build:
-    runs-on: ubuntu-latest
-    env:
-      VERSION: ${{github.ref_name}}
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: stable
-        check-latest: true
-    
-    - name: mod tidy
-      run: go mod tidy
-
-    - name: Build
-      run: echo $VERSION &&go build
-
   test:
     runs-on: ubuntu-latest
-    env:
-      VERSION: ${{github.ref_name}}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
+    - uses: actions/setup-node@v4
       with:
-        go-version: stable
-        check-latest: true
-
-    - name: mod tidy
-      run: go mod tidy
+        node-version: lts/*
 
     - name: Test
-      run: go test ./...
+      run: npm test

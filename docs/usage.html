@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Usage · Service Level Helper</title>
+<meta name="description" content="How to use Service Level Helper: error budgets, probe frequency, reverse calculations and hours per day.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html" aria-label="slh home"><b>slh</b></a>
+    <nav aria-label="Sections">
+      <a href="index.html">Calculator</a>
+      <a href="usage.html" aria-current="page">Usage</a>
+      <a href="probe.html">Probe algorithm</a>
+      <a href="faq.html">FAQ</a>
+      <a class="nav-ext" href="https://github.com/lucasloureiror/slh">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="doc">
+      <h1>Usage</h1>
+      <h3>Error budget</h3>
+      <p>Enter a service level to get the maximum downtime allowed in each period. You can type a percentage like <code>99.95</code> or a number of nines: <code>4</code> is the same as <code>99.99</code>. Add a <code>%</code> to force a plain percentage, like <code>5%</code>.</p>
+      <h3>Probe frequency</h3>
+      <p>Turn on <em>Add probe frequency</em> and enter your mean time to repair, expected incidents and failed probes to alert. The table then shows how often you need to probe in each period. See <a href="probe.html">how it is calculated</a>.</p>
+      <h3>Reverse</h3>
+      <p>Switch to <em>Reverse</em> and enter the total downtime as days, hours, minutes and seconds. The table shows the availability that downtime leaves you with in each period.</p>
+      <h3>Hours per day</h3>
+      <p>Set it below 24 for a service that only has to be up during business hours. Every period gets shorter accordingly.</p>
+    </article>
+  </main>
+
+  <footer>
+    <span>Service Level Helper is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.</span>
+    <span><a href="https://github.com/lucasloureiror/slh">Source on GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>

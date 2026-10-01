@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Probe frequency algorithm · Service Level Helper</title>
+<meta name="description" content="How slh works out the minimum probing frequency from your downtime budget, MTTR, incidents and failed probes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html" aria-label="slh home"><b>slh</b></a>
+    <nav aria-label="Sections">
+      <a href="index.html">Calculator</a>
+      <a href="usage.html">Usage</a>
+      <a href="probe.html" aria-current="page">Probe algorithm</a>
+      <a href="faq.html">FAQ</a>
+      <a class="nav-ext" href="https://github.com/lucasloureiror/slh">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="doc">
+      <h1>Probe frequency algorithm</h1>
+      <p>The probe frequency is the longest gap between health checks that still lets you detect and repair your expected incidents without going over the downtime budget. It depends on your mean time to repair (MTTR), how many incidents you expect, and how many failed probes it takes to confirm an incident.</p>
+      <div class="formula" role="math" aria-label="Probe frequency equals buffer time divided by incidents times probes. Buffer time equals downtime budget minus MTTR times incidents.">
+        <div><var>probe frequency</var> = <var>buffer</var> ÷ (<var>incidents</var> × <var>probes</var>)</div>
+        <div><var>buffer</var> = <var>downtime budget</var> − (<var>MTTR</var> × <var>incidents</var>)</div>
+      </div>
+      <ul>
+        <li><strong>Incidents</strong>: how many times you expect the service to become unavailable in the period.</li>
+        <li><strong>Probes</strong>: how many consecutive failed checks it takes to confirm an outage and fire an alert.</li>
+        <li><strong>Buffer</strong>: what's left of the downtime budget after repairing every expected incident. That's the time you can spend detecting them.</li>
+      </ul>
+
+      <h3>Worked example</h3>
+      <p>A 99% service level, 20 minute MTTR, 3 incidents per period and 2 failed probes to alert:</p>
+      <p>The minimum probing frequency is 6m 48s for a week, 1h 3m 3s for a month, 3h 26m for a quarter and 14h 26m for a year. The daily budget is 14m 24s, but three 20 minute repairs take an hour, so no probing frequency can keep a 99% daily target. For the week, the budget is 1h 40m 48s. Take away the hour of repairs and 40m 48s remains, split across 3 incidents × 2 probes, so you need to probe at least every 6m 48s.</p>
+      <p><a href="index.html?sl=99&amp;mttr=0h20m&amp;incidents=3&amp;probes=2">Open this example in the calculator</a>.</p>
+      <p class="note">This formula is experimental. There's no guarantee it fits your service, so treat the result as a starting point.</p>
+    </article>
+  </main>
+
+  <footer>
+    <span>Service Level Helper is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.</span>
+    <span><a href="https://github.com/lucasloureiror/slh">Source on GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
